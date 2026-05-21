@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIFXXCODETZ | Perkenalan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- VIDEO BACKGROUND LOOP -->
+    <div class="video-wrapper">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="video/background.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <!-- AUDIO PLAYER (di pojok kanan bawah) -->
+    <div class="audio-player">
+        <audio id="bg-music" loop>
+            <source src="audio/background-music.mp3" type="audio/mpeg">
+            <source src="audio/background-music.ogg" type="audio/ogg">
+            Browser Anda tidak mendukung audio.
+        </audio>
+        
+        <button id="playPauseBtn" class="audio-btn">
+            <span class="play-icon">▶</span>
+            <span class="pause-icon" style="display: none;">⏸</span>
+        </button>
+        
+        <input type="range" id="volumeControl" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+        <!-- FOTO BULAT -->
+        <div class="profile-img-wrapper">
+            <img src="images/profile-photo.jpg" alt="LIFXXCODETZ" class="profile-img">
+        </div>
+
+        <!-- NAMA / BRANDING -->
+        <h1 class="title">LIFXXCODETZ</h1>
+
+        <!-- DESKRIPSI SINGKAT -->
+        <p class="description">
+            Creative Developer & Designer
+        </p>
+
+        <!-- SOCIAL MEDIA / LINK -->
+        <div class="social-links">
+            <a href="https://web-kelas-by-lifx.vercel.app/" target="_blank" rel="noopener noreferrer" class="social-link">Prjt 2</a>
+            <a href="https://wa.me/6282319663436" target="_blank" rel="noopener noreferrer" class="social-link">WhatsApp</a>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
