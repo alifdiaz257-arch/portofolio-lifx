@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^favicon\.ico$ /assets/favicon.ico [L]
+    RewriteRule ^site\.webmanifest$ /assets/site.webmanifest [L]
+</IfModule>
