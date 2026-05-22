@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#952222">
+    <meta name="theme-color" content="#000000">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>alifdiaz | portofolio</title>
     <link rel="stylesheet" href="style.css">
@@ -44,15 +44,15 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* MODAL WELCOME STYLE */
+        /* MODAL WELCOME STYLE - background blur */
         .welcome-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(15px);
+            background: rgba(10, 10, 20, 0.6);
+            backdrop-filter: blur(20px);
             z-index: 1000;
             display: flex;
             justify-content: center;
@@ -60,14 +60,15 @@
             animation: fadeIn 0.4s ease;
         }
         .welcome-card {
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+            background: linear-gradient(135deg, rgba(15,15,26,0.92) 0%, rgba(26,26,46,0.92) 100%);
+            backdrop-filter: blur(10px);
             border-radius: 28px;
             padding: 2rem 2rem 1.5rem;
             text-align: center;
             max-width: 380px;
             width: 90%;
-            border: 1px solid rgba(233,69,96,0.4);
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8), 0 0 0 1px rgba(233,69,96,0.1);
+            border: 1px solid rgba(233,69,96,0.5);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(233,69,96,0.2);
             animation: slideUp 0.5s ease;
             position: relative;
             font-family: 'Poppins', 'Space Grotesk', sans-serif;
@@ -76,9 +77,9 @@
             position: absolute;
             top: 15px;
             right: 20px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.15);
             border: none;
-            color: #888;
+            color: #aaa;
             font-size: 20px;
             cursor: pointer;
             width: 32px;
@@ -94,14 +95,27 @@
             color: white;
         }
         
-        /* TEKS WELCOME TO - di ATAS foto */
         .welcome-text-glitch {
             font-size: 20px;
             font-weight: 700;
             letter-spacing: 3px;
             margin-bottom: 15px;
             text-transform: uppercase;
-            position: relative;
+            display: inline-block;
+            background: linear-gradient(90deg, 
+                #fff, #e94560, #ff6b8a, #e94560, #fff, #ff3366, #e94560);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textGlow 2s linear infinite;
+        }
+        
+        .welcome-alif-glow {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0 0 5px 0;
+            letter-spacing: 2px;
             display: inline-block;
             background: linear-gradient(90deg, 
                 #fff, #e94560, #ff6b8a, #e94560, #fff, #ff3366, #e94560);
@@ -127,47 +141,74 @@
             }
         }
         
-        /* FOTO PROFIL BULAT DI TENGAH */
-        .welcome-profile-img {
+        .welcome-photo-glitch {
+            position: relative;
             width: 100px;
             height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #e94560;
-            box-shadow: 0 0 20px rgba(233,69,96,0.3);
             margin: 0 auto 1rem;
-            display: block;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
         }
         
-        .welcome-title {
-            font-size: 28px;
-            font-weight: 800;
-            margin: 0 0 5px 0;
-            background: linear-gradient(135deg, #fff, #e94560);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 1px;
+        .welcome-profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 3px solid #e94560;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(233,69,96,0.3);
         }
-        .welcome-title span {
-            background: linear-gradient(135deg, #e94560, #ff6b8a);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        
+        .glitch-overlay-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            opacity: 0;
+            pointer-events: none;
+            border: 3px solid #e94560;
+            box-shadow: 0 0 20px rgba(233,69,96,0.5);
         }
+        
+        .welcome-photo-glitch:hover .glitch-overlay-img {
+            animation: glitchFlash 0.15s 3;
+        }
+        
+        @keyframes glitchFlash {
+            0% { opacity: 0; transform: translate(0); }
+            10% { opacity: 1; transform: translate(-2px, 1px); }
+            20% { opacity: 1; transform: translate(2px, -1px); }
+            30% { opacity: 1; transform: translate(-1px, 2px); }
+            40% { opacity: 1; transform: translate(1px, -2px); }
+            50% { opacity: 1; transform: translate(-2px, 0); }
+            60% { opacity: 1; transform: translate(2px, 1px); }
+            70% { opacity: 1; transform: translate(0, -1px); }
+            80% { opacity: 0.8; transform: translate(1px, 1px); }
+            100% { opacity: 0; transform: translate(0); }
+        }
+        
+        .auto-glitch {
+            animation: glitchFlash 0.12s 2 !important;
+        }
+        
         .welcome-info {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.08);
             border-radius: 18px;
             padding: 12px 18px;
             margin: 20px 0;
             text-align: left;
+            backdrop-filter: blur(4px);
         }
         .info-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             font-size: 13px;
         }
         .info-item:last-child {
@@ -176,7 +217,6 @@
         .info-label {
             font-weight: 600;
             color: #e94560;
-            letter-spacing: 0.5px;
             font-size: 11px;
         }
         .info-value {
@@ -191,7 +231,6 @@
             margin: 20px 0 15px;
         }
         
-        /* ==================== BUTTON DENGAN GARIS TEBAL MIRING BERKILAT ==================== */
         .welcome-btn {
             flex: 1;
             padding: 12px 0;
@@ -209,7 +248,6 @@
             background: transparent;
         }
         
-        /* Garis tebal miring berkilat di dalam button */
         .welcome-btn::before {
             content: '';
             position: absolute;
@@ -231,18 +269,11 @@
         }
         
         @keyframes shinyLine {
-            0% {
-                transform: rotate(25deg) translateX(-100%);
-            }
-            20% {
-                transform: rotate(25deg) translateX(100%);
-            }
-            100% {
-                transform: rotate(25deg) translateX(100%);
-            }
+            0% { transform: rotate(25deg) translateX(-100%); }
+            20% { transform: rotate(25deg) translateX(100%); }
+            100% { transform: rotate(25deg) translateX(100%); }
         }
         
-        /* Warna solid untuk hover (efek dari samping) */
         .welcome-btn::after {
             content: '';
             position: absolute;
@@ -270,12 +301,8 @@
         }
         
         @keyframes shinyLineFast {
-            0% {
-                transform: rotate(25deg) translateX(-100%);
-            }
-            100% {
-                transform: rotate(25deg) translateX(100%);
-            }
+            0% { transform: rotate(25deg) translateX(-100%); }
+            100% { transform: rotate(25deg) translateX(100%); }
         }
         
         .contact-btn, .start-btn {
@@ -283,16 +310,10 @@
             color: #e94560;
         }
         
-        .welcome-btn:active {
-            transform: translateY(0px);
-            box-shadow: 0 2px 8px rgba(233,69,96,0.3);
-        }
-        
         .welcome-footer {
             font-size: 10px;
-            color: #555;
+            color: rgba(255,255,255,0.5);
             margin-top: 15px;
-            letter-spacing: 0.5px;
         }
         
         @keyframes fadeIn {
@@ -310,170 +331,7 @@
             to { transform: translateY(0); opacity: 1; }
         }
         
-        /* Style untuk tombol portofolio */
-        .social-link {
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            transition: color 0.3s ease;
-        }
-        
-        .social-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #e94560, #ff6b8a);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-        
-        .social-link:hover::before {
-            left: 0;
-        }
-        
-        .social-link:hover {
-            color: white !important;
-        }
-    </style>
-</head>
-<body>
-    <!-- LOADING SCREEN -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="spinner"></div>
-    </div>
-
-    <!-- VIDEO BACKGROUND LOOP -->
-    <div class="video-wrapper">
-        <video autoplay muted loop playsinline id="bg-video">
-            <source src="video/background.mp4" type="video/mp4">
-        </video>
-        <div class="overlay"></div>
-    </div>
-
-    <!-- AUDIO UNTUK SOUND KLIK (tersembunyi) -->
-    <audio id="clickSound" preload="auto">
-        <source src="audio/click.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- MAIN CONTENT -->
-    <main class="content">
-        <div class="profile-img-wrapper">
-            <img src="images/profile-photo.jpg" alt="ALIF DIAZ" class="profile-img">
-        </div>
-        <h1 class="title">ALIF DIAZ</h1>
-        <p class="description">programmer modal ai / pemula</p>
-        <div class="social-links">
-            <a href="https://web-kelas-by-lifx.vercel.app/" target="_blank" rel="noopener noreferrer" class="social-link">Project 2</a>
-            <a href="https://wa.me/6282319663436" target="_blank" rel="noopener noreferrer" class="social-link">WhatsApp</a>
-            <a href="https://liftupload-github-gitlab-5ja0.arcada.app/" target="_blank" rel="noopener noreferrer" class="social-link">Upload Via Website</a>
-            <a href="https://webzip-scraper-11j1.arcada.app/" target="_blank" rel="noopener noreferrer" class="social-link">Scraper Website</a>
-            <a href="https://lifx-the-prompt-byalif.base44.app" target="_blank" rel="noopener noreferrer" class="social-link">Jailbreak Website</a>
-            <a href="https://alifdiaz257-arch.github.io/Qr/" target="_blank" rel="noopener noreferrer" class="social-link">qr scanner</a>
-        </div>
-    </main>
-
-    <script>
-        // ==================== FUNGSI PLAY SOUND KLIK ====================
-        function playClickSound() {
-            const clickSound = document.getElementById('clickSound');
-            if (clickSound) {
-                clickSound.currentTime = 0; // Reset ke awal
-                clickSound.play().catch(e => console.log('Sound klik tidak bisa diputar:', e));
-            }
-        }
-
-        // ==================== LOADING SCREEN FADE KE WELCOME MODAL ====================
-        window.addEventListener('DOMContentLoaded', () => {
-            const fontLink = document.createElement('link');
-            fontLink.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap';
-            fontLink.rel = 'stylesheet';
-            document.head.appendChild(fontLink);
-
-            setTimeout(() => {
-                const loadingScreen = document.getElementById('loadingScreen');
-                loadingScreen.classList.add('hide');
-                
-                setTimeout(() => {
-                    const modal = document.createElement('div');
-                    modal.className = 'welcome-modal';
-                    modal.innerHTML = `
-                        <div class="welcome-card">
-                            <button class="close-modal-btn" id="closeModalBtn">✕</button>
-                            <div class="welcome-text-glitch" data-text="WELCOME TO">WELCOME TO</div>
-                            <img src="images/profile-photo.jpg" alt="ALIF DIAZ" class="welcome-profile-img">
-                            <h2 class="welcome-title">PORT<span>FOLIO</span></h2>
-                            
-                            <div class="welcome-info">
-                                <div class="info-item">
-                                    <span class="info-label">⚡ NAME</span>
-                                    <span class="info-value">ALIF DIAZ</span>
-                                </div>
-                                <div class="info-item">
-                                    <span class="info-label">🎭 ROLE</span>
-                                    <span class="info-value">PEMULA</span>
-                                </div>
-                                <div class="info-item">
-                                    <span class="info-label">🤖 info</span>
-                                    <span class="info-value">Portofolio Project Saya</span>
-                                </div>
-                                <div class="info-item">
-                                    <span class="info-label">📅 STATUS</span>
-                                    <span class="info-value">ACTIVE</span>
-                                </div>
-                            </div>
-
-                            <div class="welcome-buttons">
-                                <button class="welcome-btn contact-btn" id="contactBtn">
-                                    HUBUNGI SAYA
-                                </button>
-                                <button class="welcome-btn start-btn" id="startBtn">
-                                    STARTED
-                                </button>
-                            </div>
-                            
-                            <p class="welcome-footer">©2025 / 2026 portolio project by alifdiaz</p>
-                        </div>
-                    `;
-                    document.body.appendChild(modal);
-
-                    // Event listeners dengan sound klik
-                    const closeBtn = document.getElementById('closeModalBtn');
-                    const contactBtn = document.getElementById('contactBtn');
-                    const startBtn = document.getElementById('startBtn');
-
-                    closeBtn.addEventListener('click', () => {
-                        playClickSound();
-                        modal.style.animation = 'fadeOut 0.3s ease';
-                        setTimeout(() => modal.remove(), 300);
-                    });
-
-                    contactBtn.addEventListener('click', () => {
-                        playClickSound();
-                        window.open('https://wa.me/6282319663436', '_blank');
-                    });
-
-                    startBtn.addEventListener('click', () => {
-                        playClickSound();
-                        modal.style.animation = 'fadeOut 0.3s ease';
-                        setTimeout(() => modal.remove(), 300);
-                    });
-                }, 200);
-            }, 2000);
-        });
-
-        // ==================== SOUND KLIK UNTUK SEMUA SOCIAL LINK ====================
-        document.addEventListener('click', (e) => {
-            // Cek apakah yang diklik adalah social link
-            if (e.target.classList && e.target.classList.contains('social-link')) {
-                playClickSound();
-            }
-        });
-    </script>
-    
-    <style>
+        /* MAIN CONTENT STYLE */
         .video-wrapper {
             position: fixed;
             top: 0;
@@ -494,7 +352,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.6);
         }
         .content {
             position: relative;
@@ -518,20 +376,58 @@
             border: 3px solid #e94560;
             box-shadow: 0 0 20px rgba(233,69,96,0.3);
         }
-        .title {
+        
+        .glitch-main-title {
             font-family: 'Poppins', monospace;
             font-size: 2.5rem;
-            background: linear-gradient(135deg, #fff, #e94560);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            background: linear-gradient(90deg, 
+                #fff, #e94560, #ff6b8a, #e94560, #fff, #ff3366, #e94560);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 0.5rem;
+            animation: textGlow 2s linear infinite;
         }
+        
+        /* DESCRIPTION - style TIDAK DIUBAH, cuma ditambah animasi per huruf LOOP */
         .description {
             color: #ccc;
             font-family: monospace;
             margin-bottom: 2rem;
+            font-size: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0px;
         }
+        
+        /* Setiap huruf dalam description */
+        .desc-char {
+            display: inline-block;
+            animation: charPulse 2s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.08s);
+            text-shadow: 0 0 0px rgba(255,255,255,0);
+        }
+        
+        /* Animasi cahaya putih kecil muncul di setiap huruf secara bergantian loop */
+        @keyframes charPulse {
+            0%, 100% {
+                text-shadow: 0 0 0px rgba(255,255,255,0);
+                color: #ccc;
+            }
+            15% {
+                text-shadow: 0 0 6px rgba(255,255,255,0.9), 0 0 3px #e94560;
+                color: #fff;
+            }
+            30% {
+                text-shadow: 0 0 2px rgba(255,255,255,0.5);
+                color: #ddd;
+            }
+        }
+        
         .social-links {
             display: flex;
             flex-wrap: wrap;
@@ -552,6 +448,191 @@
             z-index: 1;
             cursor: pointer;
         }
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e94560, #ff6b8a);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        .social-link:hover::before {
+            left: 0;
+        }
+        .social-link:hover {
+            color: white !important;
+        }
     </style>
+</head>
+<body>
+    <!-- LOADING SCREEN -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- VIDEO BACKGROUND -->
+    <div class="video-wrapper">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="video/background.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <audio id="clickSound" preload="auto">
+        <source src="audio/click.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+        <div class="profile-img-wrapper">
+            <img src="images/profile-photo.jpg" alt="ALIF DIAZ" class="profile-img">
+        </div>
+        <h1 class="glitch-main-title">ALIF DIAZ</h1>
+        
+        <!-- DESCRIPTION DENGAN ANIMASI PER HURUF LOOP (style tidak diubah) -->
+        <div class="description" id="descriptionText">programmer modal ai / pemula</div>
+        
+        <div class="social-links">
+            <a href="https://web-kelas-by-lifx.vercel.app/" target="_blank" rel="noopener noreferrer" class="social-link">Project 2</a>
+            <a href="https://wa.me/6282319663436" target="_blank" rel="noopener noreferrer" class="social-link">WhatsApp</a>
+            <a href="https://liftupload-github-gitlab-5ja0.arcada.app/" target="_blank" rel="noopener noreferrer" class="social-link">Upload Via Website</a>
+            <a href="https://webzip-scraper-11j1.arcada.app/" target="_blank" rel="noopener noreferrer" class="social-link">Scraper Website</a>
+            <a href="https://lifx-the-prompt-byalif.base44.app" target="_blank" rel="noopener noreferrer" class="social-link">Jailbreak Website</a>
+            <a href="https://alifdiaz257-arch.github.io/Qr/" target="_blank" rel="noopener noreferrer" class="social-link">qr scanner</a>
+        </div>
+    </main>
+
+    <script>
+        function playClickSound() {
+            const clickSound = document.getElementById('clickSound');
+            if (clickSound) {
+                clickSound.currentTime = 0;
+                clickSound.play().catch(e => console.log('Sound error:', e));
+            }
+        }
+
+        function triggerPhotoGlitch(overlayElement) {
+            if (!overlayElement) return;
+            overlayElement.classList.remove('auto-glitch');
+            void overlayElement.offsetWidth;
+            overlayElement.classList.add('auto-glitch');
+            setTimeout(() => overlayElement.classList.remove('auto-glitch'), 300);
+        }
+        
+        // ==================== MEMBUAT ANIMASI PER HURUF LOOP (style text TIDAK diubah) ====================
+        function initCharAnimation() {
+            const descElement = document.getElementById('descriptionText');
+            if (!descElement) return;
+            
+            const originalText = descElement.innerText;
+            // Simpan teks asli
+            descElement.innerHTML = '';
+            
+            // Buat span untuk setiap karakter (spasi tetap dipertahankan)
+            for (let i = 0; i < originalText.length; i++) {
+                const char = originalText[i];
+                const span = document.createElement('span');
+                span.className = 'desc-char';
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                if (char === ' ') {
+                    span.style.width = '0.35em';
+                    span.style.display = 'inline-block';
+                }
+                span.style.setProperty('--i', i);
+                descElement.appendChild(span);
+            }
+        }
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            const fontLink = document.createElement('link');
+            fontLink.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap';
+            fontLink.rel = 'stylesheet';
+            document.head.appendChild(fontLink);
+            
+            // Jalankan animasi per huruf loop (style teks tetap sama persis)
+            initCharAnimation();
+
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loadingScreen');
+                loadingScreen.classList.add('hide');
+                
+                setTimeout(() => {
+                    const modal = document.createElement('div');
+                    modal.className = 'welcome-modal';
+                    modal.innerHTML = `
+                        <div class="welcome-card">
+                            <button class="close-modal-btn" id="closeModalBtn">✕</button>
+                            <div class="welcome-text-glitch" data-text="WELCOME TO">WELCOME TO</div>
+                            
+                            <div class="welcome-photo-glitch" id="welcomePhotoWrapper">
+                                <img src="images/profile-photo.jpg" alt="ALIF DIAZ" class="welcome-profile-img" id="baseProfileImg">
+                                <img src="images/welcome.jpg" alt="glitch effect" class="glitch-overlay-img" id="glitchOverlayImg">
+                            </div>
+                            
+                            <div class="welcome-alif-glow">ALIF DIAZ</div>
+                            
+                            <div class="welcome-info">
+                                <div class="info-item"><span class="info-label">⚡ ROLE</span><span class="info-value">PEMULA</span></div>
+                                <div class="info-item"><span class="info-label">🤖 info</span><span class="info-value">Portofolio Project Saya</span></div>
+                                <div class="info-item"><span class="info-label">📅 STATUS</span><span class="info-value">ACTIVE</span></div>
+                            </div>
+
+                            <div class="welcome-buttons">
+                                <button class="welcome-btn contact-btn" id="contactBtn">HUBUNGI SAYA</button>
+                                <button class="welcome-btn start-btn" id="startBtn">STARTED</button>
+                            </div>
+                            <p class="welcome-footer">©2025 / 2026 portolio project by alifdiaz</p>
+                        </div>
+                    `;
+                    document.body.appendChild(modal);
+                    
+                    const glitchOverlay = document.getElementById('glitchOverlayImg');
+                    const photoWrapper = document.getElementById('welcomePhotoWrapper');
+                    
+                    let glitchInterval = setInterval(() => {
+                        if (glitchOverlay && document.body.contains(glitchOverlay)) {
+                            triggerPhotoGlitch(glitchOverlay);
+                        } else {
+                            clearInterval(glitchInterval);
+                        }
+                    }, 5000);
+                    
+                    if (photoWrapper) {
+                        photoWrapper.addEventListener('mouseenter', () => {
+                            if (glitchOverlay) triggerPhotoGlitch(glitchOverlay);
+                        });
+                    }
+                    
+                    setTimeout(() => {
+                        if (glitchOverlay) triggerPhotoGlitch(glitchOverlay);
+                    }, 400);
+                    
+                    function cleanupAndRemove(modalElement) {
+                        if (glitchInterval) clearInterval(glitchInterval);
+                        modalElement.style.animation = 'fadeOut 0.3s ease';
+                        setTimeout(() => modalElement.remove(), 300);
+                    }
+                    
+                    const closeBtn = document.getElementById('closeModalBtn');
+                    const contactBtn = document.getElementById('contactBtn');
+                    const startBtn = document.getElementById('startBtn');
+                    
+                    closeBtn.addEventListener('click', () => { playClickSound(); cleanupAndRemove(modal); });
+                    contactBtn.addEventListener('click', () => { playClickSound(); window.open('https://wa.me/6282319663436', '_blank'); cleanupAndRemove(modal); });
+                    startBtn.addEventListener('click', () => { playClickSound(); cleanupAndRemove(modal); });
+                    
+                }, 200);
+            }, 2000);
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (e.target.classList && e.target.classList.contains('social-link')) {
+                playClickSound();
+            }
+        });
+    </script>
 </body>
 </html>
