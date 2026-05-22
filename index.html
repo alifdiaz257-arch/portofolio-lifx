@@ -309,134 +309,6 @@
             from { transform: translateY(30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-
-        /* PLAYLIST PANEL */
-        .playlist-panel {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 300px;
-            max-height: 400px;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(15px);
-            border-radius: 15px;
-            border: 1px solid #e94560;
-            z-index: 200;
-            transform: scale(0);
-            transition: transform 0.3s ease;
-            transform-origin: bottom right;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
-        }
-        .playlist-panel.show {
-            transform: scale(1);
-        }
-        .playlist-header {
-            background: #e94560;
-            padding: 12px 15px;
-            border-radius: 15px 15px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .playlist-header h4 {
-            margin: 0;
-            color: white;
-            font-size: 14px;
-        }
-        .close-playlist {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        .playlist-stats {
-            background: rgba(0,0,0,0.5);
-            padding: 5px 10px;
-            font-size: 11px;
-            color: #e94560;
-            text-align: center;
-        }
-        .playlist-songs {
-            max-height: 300px;
-            overflow-y: auto;
-            padding: 10px;
-        }
-        .playlist-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 10px;
-            margin: 5px 0;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .playlist-item:hover {
-            background: rgba(233,69,96,0.3);
-        }
-        .playlist-item.active {
-            background: #e94560;
-        }
-        .song-info {
-            flex: 1;
-            overflow: hidden;
-        }
-        .song-title {
-            color: white;
-            font-size: 13px;
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .song-artist {
-            color: #aaa;
-            font-size: 10px;
-        }
-        .play-song-btn {
-            background: none;
-            border: none;
-            color: #e94560;
-            cursor: pointer;
-            font-size: 14px;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            transition: 0.2s;
-        }
-        .play-song-btn:hover {
-            background: rgba(255,255,255,0.2);
-            transform: scale(1.1);
-        }
-        .empty-playlist {
-            text-align: center;
-            color: #888;
-            padding: 30px 20px;
-            font-size: 12px;
-        }
-        .playlist-btn {
-            background: #e94560;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            margin-left: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: 0.3s;
-        }
-        .playlist-btn:hover {
-            transform: scale(1.1);
-        }
-        .audio-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
         
         /* Style untuk tombol portofolio */
         .social-link {
@@ -481,37 +353,10 @@
         <div class="overlay"></div>
     </div>
 
-    <!-- AUDIO PLAYER -->
-    <div class="audio-player">
-        <div class="audio-controls">
-            <audio id="bg-music" loop>
-                <source src="audio/background-music.mp3" type="audio/mpeg">
-                <source src="audio/background-music.ogg" type="audio/ogg">
-                Browser Anda tidak mendukung audio.
-            </audio>
-            
-            <button id="playPauseBtn" class="audio-btn">
-                <span class="play-icon">▶</span>
-                <span class="pause-icon" style="display: none;">◼</span>
-            </button>
-            
-            <input type="range" id="volumeControl" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
-            
-            <button id="playlistBtn" class="playlist-btn">📋</button>
-        </div>
-    </div>
-
-    <!-- PLAYLIST PANEL -->
-    <div id="playlistPanel" class="playlist-panel">
-        <div class="playlist-header">
-            <h4>📋 PLAYLIST</h4>
-            <button class="close-playlist" id="closePlaylist">✕</button>
-        </div>
-        <div class="playlist-stats" id="playlistStats">🎵 Memuat lagu...</div>
-        <div class="playlist-songs" id="playlistSongs">
-            <div class="empty-playlist">⏳ Memuat daftar lagu dari folder audio/...</div>
-        </div>
-    </div>
+    <!-- AUDIO UNTUK SOUND KLIK (tersembunyi) -->
+    <audio id="clickSound" preload="auto">
+        <source src="audio/click.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- MAIN CONTENT -->
     <main class="content">
@@ -531,6 +376,15 @@
     </main>
 
     <script>
+        // ==================== FUNGSI PLAY SOUND KLIK ====================
+        function playClickSound() {
+            const clickSound = document.getElementById('clickSound');
+            if (clickSound) {
+                clickSound.currentTime = 0; // Reset ke awal
+                clickSound.play().catch(e => console.log('Sound klik tidak bisa diputar:', e));
+            }
+        }
+
         // ==================== LOADING SCREEN FADE KE WELCOME MODAL ====================
         window.addEventListener('DOMContentLoaded', () => {
             const fontLink = document.createElement('link');
@@ -549,7 +403,7 @@
                         <div class="welcome-card">
                             <button class="close-modal-btn" id="closeModalBtn">✕</button>
                             <div class="welcome-text-glitch" data-text="WELCOME TO">WELCOME TO</div>
-                            <img src="images/welcome.jpg" alt="ALIF DIAZ" class="welcome-profile-img">
+                            <img src="images/profile-photo.jpg" alt="ALIF DIAZ" class="welcome-profile-img">
                             <h2 class="welcome-title">PORT<span>FOLIO</span></h2>
                             
                             <div class="welcome-info">
@@ -585,16 +439,24 @@
                     `;
                     document.body.appendChild(modal);
 
-                    document.getElementById('closeModalBtn').addEventListener('click', () => {
+                    // Event listeners dengan sound klik
+                    const closeBtn = document.getElementById('closeModalBtn');
+                    const contactBtn = document.getElementById('contactBtn');
+                    const startBtn = document.getElementById('startBtn');
+
+                    closeBtn.addEventListener('click', () => {
+                        playClickSound();
                         modal.style.animation = 'fadeOut 0.3s ease';
                         setTimeout(() => modal.remove(), 300);
                     });
 
-                    document.getElementById('contactBtn').addEventListener('click', () => {
+                    contactBtn.addEventListener('click', () => {
+                        playClickSound();
                         window.open('https://wa.me/6282319663436', '_blank');
                     });
 
-                    document.getElementById('startBtn').addEventListener('click', () => {
+                    startBtn.addEventListener('click', () => {
+                        playClickSound();
                         modal.style.animation = 'fadeOut 0.3s ease';
                         setTimeout(() => modal.remove(), 300);
                     });
@@ -602,179 +464,13 @@
             }, 2000);
         });
 
-        // ==================== PLAYLIST OTOMATIS ====================
-        let playlist = [];
-        let currentSongIndex = -1;
-        
-        const audio = document.getElementById('bg-music');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const playIcon = document.querySelector('.play-icon');
-        const pauseIcon = document.querySelector('.pause-icon');
-        const volumeSlider = document.getElementById('volumeControl');
-        const playlistBtn = document.getElementById('playlistBtn');
-        const playlistPanel = document.getElementById('playlistPanel');
-        const closePlaylist = document.getElementById('closePlaylist');
-        const playlistSongsDiv = document.getElementById('playlistSongs');
-        const playlistStats = document.getElementById('playlistStats');
-
-        async function loadPlaylistFromFolder() {
-            if (!playlistSongsDiv) return;
-            playlistSongsDiv.innerHTML = '<div class="empty-playlist">⏳ Memuat daftar lagu...</div>';
-            if (playlistStats) playlistStats.innerHTML = '🎵 Scanning folder audio/...';
-            
-            try {
-                const response = await fetch('get_audio.php?_=' + Date.now());
-                if (!response.ok) throw new Error('Server error');
-                const audioFiles = await response.json();
-                
-                if(audioFiles && audioFiles.length > 0) {
-                    playlist = audioFiles;
-                    savePlaylist();
-                    renderPlaylist();
-                    if (playlistStats) playlistStats.innerHTML = `🎵 ${playlist.length} lagu ditemukan`;
-                } else {
-                    if (playlistStats) playlistStats.innerHTML = '⚠️ Tidak ada file MP3';
-                    if (playlistSongsDiv) playlistSongsDiv.innerHTML = '<div class="empty-playlist">🎵 Tidak ada file MP3 di folder audio/</div>';
-                }
-            } catch(error) {
-                console.error('Failed to load playlist:', error);
-                if (playlistStats) playlistStats.innerHTML = '❌ Gagal memuat';
-                if (playlistSongsDiv) playlistSongsDiv.innerHTML = '<div class="empty-playlist">❌ Gagal membaca folder audio/</div>';
-                
-                const saved = localStorage.getItem('lifx_playlist');
-                if(saved) {
-                    playlist = JSON.parse(saved);
-                    renderPlaylist();
-                    if (playlistStats) playlistStats.innerHTML = `🎵 ${playlist.length} lagu (cached)`;
-                }
-            }
-        }
-        
-        function savePlaylist() {
-            localStorage.setItem('lifx_playlist', JSON.stringify(playlist));
-        }
-        
-        function renderPlaylist() {
-            if(!playlistSongsDiv) return;
-            
-            if(playlist.length === 0) {
-                playlistSongsDiv.innerHTML = '<div class="empty-playlist">🎵 Belum ada lagu</div>';
-                return;
-            }
-            
-            playlistSongsDiv.innerHTML = '';
-            playlist.forEach((song, index) => {
-                const songDiv = document.createElement('div');
-                songDiv.className = 'playlist-item';
-                if(currentSongIndex === index) songDiv.classList.add('active');
-                songDiv.innerHTML = `
-                    <div class="song-info">
-                        <div class="song-title">${escapeHtml(song.title.substring(0, 35))}</div>
-                        <div class="song-artist">${escapeHtml(song.artist || 'Local File')}</div>
-                    </div>
-                    <button class="play-song-btn" data-index="${index}">▶</button>
-                `;
-                playlistSongsDiv.appendChild(songDiv);
-            });
-            
-            document.querySelectorAll('.play-song-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const idx = parseInt(btn.dataset.index);
-                    playSong(idx);
-                });
-            });
-        }
-        
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-        
-        function playSong(index) {
-            const song = playlist[index];
-            if(!song || !song.url) return;
-            
-            audio.src = song.url;
-            audio.load();
-            audio.play().catch(e => console.log('Auto-play blocked:', e));
-            currentSongIndex = index;
-            if (playIcon && pauseIcon) {
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
-            }
-            renderPlaylist();
-            document.title = `🎵 ${song.title} - ALIFDIAZ`;
-            if (playlistStats) playlistStats.innerHTML = `🎵 Now playing: ${song.title.substring(0, 25)}`;
-            
-            setTimeout(() => {
-                if(playlistStats) playlistStats.innerHTML = `🎵 ${playlist.length} lagu`;
-            }, 3000);
-        }
-        
-        if (playPauseBtn) {
-            playPauseBtn.addEventListener('click', () => {
-                if(audio.paused) {
-                    audio.play();
-                    if (playIcon && pauseIcon) {
-                        playIcon.style.display = 'none';
-                        pauseIcon.style.display = 'inline';
-                    }
-                } else {
-                    audio.pause();
-                    if (playIcon && pauseIcon) {
-                        playIcon.style.display = 'inline';
-                        pauseIcon.style.display = 'none';
-                    }
-                }
-            });
-        }
-        
-        if (volumeSlider) {
-            volumeSlider.addEventListener('input', (e) => {
-                audio.volume = parseFloat(e.target.value);
-            });
-        }
-        
-        if (playlistBtn && playlistPanel) {
-            playlistBtn.addEventListener('click', () => {
-                playlistPanel.classList.toggle('show');
-                if(playlistPanel.classList.contains('show') && playlist.length === 0) {
-                    loadPlaylistFromFolder();
-                }
-            });
-        }
-        
-        if (closePlaylist && playlistPanel) {
-            closePlaylist.addEventListener('click', () => {
-                playlistPanel.classList.remove('show');
-            });
-        }
-        
+        // ==================== SOUND KLIK UNTUK SEMUA SOCIAL LINK ====================
         document.addEventListener('click', (e) => {
-            if(playlistPanel && playlistBtn && !playlistPanel.contains(e.target) && !playlistBtn.contains(e.target)) {
-                playlistPanel.classList.remove('show');
+            // Cek apakah yang diklik adalah social link
+            if (e.target.classList && e.target.classList.contains('social-link')) {
+                playClickSound();
             }
         });
-        
-        if (audio) {
-            audio.addEventListener('ended', () => {
-                if(playlist.length > 0 && currentSongIndex !== -1) {
-                    let nextIndex = (currentSongIndex + 1) % playlist.length;
-                    playSong(nextIndex);
-                }
-            });
-        }
-        
-        document.addEventListener('keydown', (e) => {
-            if(e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && playPauseBtn) {
-                e.preventDefault();
-                playPauseBtn.click();
-            }
-        });
-        
-        loadPlaylistFromFolder();
     </script>
     
     <style>
@@ -854,33 +550,6 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
-        }
-        .audio-player {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 100;
-        }
-        .audio-controls {
-            display: flex;
-            gap: 10px;
-            background: rgba(0,0,0,0.8);
-            padding: 10px 15px;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-        }
-        .audio-btn {
-            background: #e94560;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            cursor: pointer;
-            color: white;
-            font-size: 14px;
-        }
-        .volume-slider {
-            width: 80px;
             cursor: pointer;
         }
     </style>
