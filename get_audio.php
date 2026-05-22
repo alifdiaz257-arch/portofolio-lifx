@@ -1,43 +1,40 @@
 <?php
 header('Content-Type: application/json');
-header('Cache-Control: no-cache, must-revalidate');
 
-// Folder audio (sesuaikan dengan struktur folder kamu)
+// Folder tempat file audio
 $audioFolder = 'audio/';
-$playlist = [];
 
-// Cek apakah folder ada
-if (!is_dir($audioFolder)) {
-    echo json_encode([]);
-    exit;
-}
+// Ekstensi file yang diizinkan
+$allowedExtensions = ['mp3', 'ogg', 'wav', 'm4a'];
 
-// Scan folder
-$files = scandir($audioFolder);
-$supported = ['mp3', 'ogg', 'wav', 'm4a'];
+$audioFiles = [];
 
-foreach ($files as $file) {
-    $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-    if (in_array($ext, $supported)) {
-        $filename = pathinfo($file, PATHINFO_FILENAME);
-        // Bersihkan nama file untuk judul
-        $title = preg_replace('/[_-]/', ' ', $filename);
-        $title = ucwords($title);
+// Cek apakah folder audio ada
+if (is_dir($audioFolder)) {
+    // Scan folder audio
+    $files = scandir($audioFolder);
+    
+    foreach ($files as $file) {
+        // Ambil ekstensi file
+        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
         
-        $playlist[] = [
-            'title' => $title,
-            'artist' => 'LIFXXCODETZ',
-            'url' => $audioFolder . $file,
-            'file' => $file,
-            'duration' => 0
-        ];
+        // Cek apakah ekstensi diizinkan
+        if (in_array($extension, $allowedExtensions)) {
+            // NAMA FILE ASLI - TANPA DIUBAH SEDIKIT PUN
+            $namaFileAsli = pathinfo($file, PATHINFO_FILENAME);
+            
+            $audioFiles[] = [
+                'title' => $namaFileAsli,  // NAMA SESUAI FILE MP3
+                'artist' => 'Local File',
+                'url' => $audioFolder . $file,
+                'file' => $file
+            ];
+        }
     }
+    
+    echo json_encode($audioFiles);
+} else {
+    // Folder audio tidak ditemukan
+    echo json_encode([]);
 }
-
-// Optional: urutkan berdasarkan nama file
-usort($playlist, function($a, $b) {
-    return strcmp($a['file'], $b['file']);
-});
-
-echo json_encode($playlist, JSON_PRETTY_PRINT);
 ?>
