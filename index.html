@@ -5,9 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>alifdiaz | portofolio</title>
+    <title>alifdiaz | portofolio | kalo cuma mo poles bole tes</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* ==================== HILANGKAN SEMUA OUTLINE BIRU ==================== */
+        *,
+        *:focus,
+        *:focus-visible,
+        *:active,
+        *:hover {
+            outline: none !important;
+            box-shadow: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-focus-ring-color: transparent !important;
+        }
+        
+        /* Untuk Chrome, Safari, Edge */
+        input:focus,
+        button:focus,
+        textarea:focus,
+        select:focus,
+        a:focus,
+        div:focus,
+        span:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        
+        /* Untuk Firefox */
+        ::-moz-focus-inner {
+            border: 0 !important;
+            outline: none !important;
+        }
+        
+        /* Untuk semua elemen yang bisa di-focus */
+        :focus {
+            outline: 0 !important;
+            box-shadow: 0 0 0 0 rgba(0,0,0,0) !important;
+        }
+        
+        /* Hilangkan highlight biru di mobile */
+        * {
+            -webkit-tap-highlight-color: transparent !important;
+        }
+        
+        /* Khusus untuk link */
+        a:focus,
+        a:active,
+        a:visited {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        
+        /* Khusus untuk button */
+        button:focus,
+        button:active {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
         /* ==================== LOADING SCREEN ==================== */
         .loading-screen {
             position: fixed;
@@ -93,6 +149,12 @@
         .close-modal-btn:hover {
             background: #e94560;
             color: white;
+        }
+        
+        /* Hilangkan outline biru di tombol close */
+        .close-modal-btn:focus {
+            outline: none !important;
+            box-shadow: none !important;
         }
         
         .welcome-text-glitch {
@@ -246,6 +308,14 @@
             transition: color 0.3s ease, transform 0.2s ease;
             z-index: 1;
             background: transparent;
+        }
+        
+        /* Hilangkan outline biru di semua tombol */
+        .welcome-btn:focus,
+        .welcome-btn:active,
+        .welcome-btn:focus-visible {
+            outline: none !important;
+            box-shadow: none !important;
         }
         
         .welcome-btn::before {
@@ -464,6 +534,16 @@
         }
         .social-link:hover {
             color: white !important;
+        }
+        
+        /* Hilangkan outline biru di semua link */
+        .social-link:focus,
+        .social-link:active,
+        .social-link:focus-visible,
+        .social-link:visited {
+            outline: none !important;
+            box-shadow: none !important;
+            -webkit-tap-highlight-color: transparent !important;
         }
     </style>
 </head>
