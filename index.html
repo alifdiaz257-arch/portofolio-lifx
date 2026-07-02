@@ -5,63 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>alifdiaz | portofolio | kalo cuma mo poles bole tes</title>
+    <title>alifdiaz | portofolio</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* ==================== HILANGKAN SEMUA OUTLINE BIRU ==================== */
-        *,
-        *:focus,
-        *:focus-visible,
-        *:active,
-        *:hover {
-            outline: none !important;
-            box-shadow: none !important;
-            -webkit-tap-highlight-color: transparent !important;
-            -webkit-focus-ring-color: transparent !important;
-        }
-        
-        /* Untuk Chrome, Safari, Edge */
-        input:focus,
-        button:focus,
-        textarea:focus,
-        select:focus,
-        a:focus,
-        div:focus,
-        span:focus {
-            outline: none !important;
-            box-shadow: none !important;
-        }
-        
-        /* Untuk Firefox */
-        ::-moz-focus-inner {
-            border: 0 !important;
-            outline: none !important;
-        }
-        
-        /* Untuk semua elemen yang bisa di-focus */
-        :focus {
-            outline: 0 !important;
-            box-shadow: 0 0 0 0 rgba(0,0,0,0) !important;
-        }
-        
-        /* Hilangkan highlight biru di mobile */
+        /* ==================== ANTI-COPY STYLES ==================== */
         * {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-touch-callout: none !important;
             -webkit-tap-highlight-color: transparent !important;
         }
-        
-        /* Khusus untuk link */
-        a:focus,
-        a:active,
-        a:visited {
-            outline: none !important;
-            box-shadow: none !important;
+
+        /* Kecualikan input dan textarea agar tetap bisa diisi */
+        input, textarea {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
         }
-        
-        /* Khusus untuk button */
-        button:focus,
-        button:active {
-            outline: none !important;
-            box-shadow: none !important;
+
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
         }
 
         /* ==================== LOADING SCREEN ==================== */
@@ -149,12 +119,6 @@
         .close-modal-btn:hover {
             background: #e94560;
             color: white;
-        }
-        
-        /* Hilangkan outline biru di tombol close */
-        .close-modal-btn:focus {
-            outline: none !important;
-            box-shadow: none !important;
         }
         
         .welcome-text-glitch {
@@ -310,14 +274,6 @@
             background: transparent;
         }
         
-        /* Hilangkan outline biru di semua tombol */
-        .welcome-btn:focus,
-        .welcome-btn:active,
-        .welcome-btn:focus-visible {
-            outline: none !important;
-            box-shadow: none !important;
-        }
-        
         .welcome-btn::before {
             content: '';
             position: absolute;
@@ -445,6 +401,12 @@
             object-fit: cover;
             border: 3px solid #e94560;
             box-shadow: 0 0 20px rgba(233,69,96,0.3);
+            pointer-events: none;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
         }
         
         .glitch-main-title {
@@ -535,19 +497,9 @@
         .social-link:hover {
             color: white !important;
         }
-        
-        /* Hilangkan outline biru di semua link */
-        .social-link:focus,
-        .social-link:active,
-        .social-link:focus-visible,
-        .social-link:visited {
-            outline: none !important;
-            box-shadow: none !important;
-            -webkit-tap-highlight-color: transparent !important;
-        }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
     <!-- LOADING SCREEN -->
     <div class="loading-screen" id="loadingScreen">
         <div class="spinner"></div>
@@ -555,7 +507,7 @@
 
     <!-- VIDEO BACKGROUND -->
     <div class="video-wrapper">
-        <video autoplay muted loop playsinline id="bg-video">
+        <video autoplay muted loop playsinline id="bg-video" disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback" oncontextmenu="return false;">
             <source src="video/background.mp4" type="video/mp4">
         </video>
         <div class="overlay"></div>
@@ -568,7 +520,7 @@
     <!-- MAIN CONTENT -->
     <main class="content">
         <div class="profile-img-wrapper">
-            <img src="images/profile-photo.jpg" alt="ALIF DIAZ" class="profile-img">
+            <img src="images/profile-photo.jpg" alt="ALIF DIAZ" class="profile-img" draggable="false">
         </div>
         <h1 class="glitch-main-title">ALIF DIAZ</h1>
         
@@ -586,6 +538,82 @@
     </main>
 
     <script>
+        // ==================== ANTI-COPY JAVASCRIPT ====================
+        
+        // Blokir klik kanan di seluruh halaman
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Blokir kombinasi keyboard untuk copy/paste/cut/save/view source
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+C, Ctrl+X, Ctrl+V, Ctrl+P, Ctrl+S, Ctrl+U, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, F12
+            if (
+                (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'v' || e.key === 'p' || e.key === 's' || e.key === 'u' || e.key === 'a')) ||
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+                e.key === 'F12' ||
+                (e.key === 'PrintScreen')
+            ) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Blokir drag and drop
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Blokir select all via menu
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Blokir copy event
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Blokir cut event
+        document.addEventListener('cut', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Blokir paste event
+        document.addEventListener('paste', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Anti inspect element tambahan (deteksi devtools)
+        (function() {
+            const threshold = 160;
+            let devtoolsOpen = false;
+            
+            const checkDevTools = () => {
+                const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+                const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+                
+                if (widthThreshold || heightThreshold) {
+                    if (!devtoolsOpen) {
+                        devtoolsOpen = true;
+                        // Optional: alert atau redirect
+                        // alert('Developer tools terdeteksi!');
+                    }
+                } else {
+                    devtoolsOpen = false;
+                }
+            };
+            
+            setInterval(checkDevTools, 1000);
+            window.addEventListener('resize', checkDevTools);
+        })();
+
         function playClickSound() {
             const clickSound = document.getElementById('clickSound');
             if (clickSound) {
@@ -648,8 +676,8 @@
                             <div class="welcome-text-glitch" data-text="WELCOME TO">WELCOME TO</div>
                             
                             <div class="welcome-photo-glitch" id="welcomePhotoWrapper">
-                                <img src="images/profile-photo.jpg" alt="ALIF DIAZ" class="welcome-profile-img" id="baseProfileImg">
-                                <img src="images/welcome.jpg" alt="glitch effect" class="glitch-overlay-img" id="glitchOverlayImg">
+                                <img src="images/profile-photo.jpg" alt="ALIF DIAZ" class="welcome-profile-img" id="baseProfileImg" draggable="false">
+                                <img src="images/welcome.jpg" alt="glitch effect" class="glitch-overlay-img" id="glitchOverlayImg" draggable="false">
                             </div>
                             
                             <div class="welcome-alif-glow">ALIF DIAZ</div>
